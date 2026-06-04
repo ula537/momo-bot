@@ -19,15 +19,15 @@ driver.get("https://www.momoshop.com.tw")
 print("已連線 Chrome")
 
 url = "https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=13920118&Area=search&mdiv=403&oid=2_17&cid=index&kw=TAKARA+TOMY"
-target_time = "00:51:59.000"
+target_time = "23:26:00.000"
 
 # ===== 預熱頁面 =====
 print("🚀 開始預熱頁面")
 driver.get(url)
-time.sleep(2)
+time.sleep(1)
 
 # ===== 重試點擊（核心）=====
-def click(selector, timeout=5, retry=10):
+def click(selector, timeout=5, retry=20):
     for i in range(retry):
         try:
             print(f"🔁 嘗試點擊 {selector} ({i+1}/{retry})")
@@ -46,7 +46,7 @@ def click(selector, timeout=5, retry=10):
 
         except Exception as e:
             print("❌ 失敗:", e)
-            time.sleep(0.1)
+            time.sleep(0.05)
 
     print("❌ 最終點擊失敗")
     return False
@@ -63,7 +63,7 @@ def wait_until(target):
             print("🔥 時間到")
             return
 
-        time.sleep(0.01)  # 10ms 精度
+        time.sleep(0.001)  # 1ms busy wait（高精度）
 
 # ===== 自動購買流程 =====
 def autoBuy(url):
